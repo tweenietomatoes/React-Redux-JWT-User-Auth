@@ -1,6 +1,6 @@
 export const fetchPosts = ({token}) => {
   return dispatch => {
-    return fetch("http://185.226.94.14/api/",{
+    return fetch("http://YOUR_URL/api/",{
       headers: { 
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
