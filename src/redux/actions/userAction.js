@@ -1,6 +1,6 @@
 export const loginUser = ({email, password}) => {
     return dispatch => {
-      fetch('http://185.226.94.14/api/login', {
+      fetch('http://YOUR_URL/api/login', {
         method: 'POST',
         headers: { 'Content-Type' : 'application/json' },
         body : JSON.stringify({email, password})
