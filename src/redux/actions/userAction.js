@@ -1,36 +1,41 @@
-export const loginUser = ({email, password}) => {
-    return dispatch => {
-      fetch('http://185.226.94.14/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type' : 'application/json' },
-        body : JSON.stringify({email, password})
-      })
-      .then((response) => {
-        return response.json()
+export const loginUser = ({ email, password }) => {
+  return dispatch => {
+    fetch('API_URL/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+      .then(res => {
+        if (res.status === 401) {
+          return dispatch({ type: 'LOGIN_ERROR' })
+        }
+        return res.json()
       })
       .then((data) => {
-        return dispatch({
-          type: 'LOGIN_USER',
-          payload: { token : data.access_token }
-        })
+        if (data.access_token) {
+          sessionStorage.setItem('token', data.access_token)
+          dispatch({
+            type: 'LOGIN_USER'
+          })
+        }
       })
       .catch((err) => {
         return console.log(err)
       })
-    }
- } 
+  }
+}
 
- export const getUser = () => {
-   return {
-     type: 'GET_USER',
-     payload : null
-   }
- }
+export const getUser = () => {
+  return {
+    type: 'GET_USER',
+    payload: null
+  }
+}
 
- export const logoutUser = () => {
-   //TODO: Logout user from api with fetch
-   return {
-     type: 'LOGOUT_USER',
-     payload: null
-   }
- }
+export const logoutUser = () => {
+  //TODO: Logout user from api with fetch
+  sessionStorage.clear()
+  return {
+    type: 'LOGOUT_USER'
+  }
+}

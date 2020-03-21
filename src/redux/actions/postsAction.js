@@ -1,9 +1,9 @@
-export const fetchPosts = ({token}) => {
+export const fetchPosts = () => {
   return dispatch => {
-    return fetch("http://185.226.94.14/api/",{
+    return fetch("API_URL",{
       headers: { 
         'Content-Type' : 'application/json',
-        'Authorization' : `Bearer ${token}`
+        'Authorization' : `Bearer ${sessionStorage.token}`
       }
     })
     .then(res => res.json())

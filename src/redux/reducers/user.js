@@ -1,13 +1,11 @@
-const initialState = sessionStorage.token
+import initialState from './initialStates'
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = initialState.user , action) => {
     switch (action.type) {
         case "LOGIN_USER":
-           sessionStorage.setItem('token', action.payload.token)
-           return state
+           return true
         case "LOGOUT_USER":
-           sessionStorage.setItem('token', "") 
-           return state
+           return false
            default:
             return state
     }
